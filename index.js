@@ -1,6 +1,24 @@
+var first_operand = null;
+var second_operand = null;
+
+function assignFirstOperand(num, operand){
+    if (typeof(operand) != "number"){
+        return num;
+    }
+    else return null;
+}
+
 function number1(){
-    var first_operand = 1;
-    document.getElementById("inputTab").value = 1; 
+
+    first_operand = assignFirstOperand(1, first_operand);
+    second_operand = assignFirstOperand(1, second_operand);
+
+    // if (typeof(first_operand) != "number"){
+    //     first_operand = 1;
+    // }
+    // else{
+    //     second_operand = 1;
+    // }
     
 }
 
@@ -9,3 +27,5 @@ while (isCalculatorOn){
     let first_num = 8;
     let 
 }
+
+
