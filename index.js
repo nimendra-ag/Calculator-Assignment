@@ -2,30 +2,44 @@ class Calculator {
   constructor() {
     this.result = 0;
     this.operationQueue = [];
+    this.entryText = "";
+  }
+
+  updateEntry(){
+    for(let i = 0; i<this.operationQueue.length; i++){
+      this.entryText += this.operationQueue[i];
+    }
+    document.getElementById("entry").value = this.entryText;
+    // console.log(this.entryText);
   }
 
   number(num) {
     this.operationQueue.push(num);
+    this.updateEntry();
     return this;
   }
 
   add() {
     this.operationQueue.push("+");
+    this.updateEntry();
     return this;
   }
 
   subtract() {
     this.operationQueue.push("-");
+    this.updateEntry();
     return this;
   }
 
   multiply() {
     this.operationQueue.push("*");
+    this.updateEntry();
     return this;
   }
 
   divide() {
     this.operationQueue.push("/");
+    this.updateEntry();
     return this;
   }
 
@@ -45,7 +59,7 @@ class Calculator {
           console.log(this.operationQueue);
       }
     }
-      console.log(this.operationQueue);
+      // console.log(this.operationQueue);
       return this;
   }
   calculate() {
@@ -100,11 +114,18 @@ class Calculator {
 
 let calculator = new Calculator();
 
-let result = calculator.number(5).multiply().number(10).divide().number(5).applyBodmas().calculate().getResult();
-console.log(result); // Output: -1.5
+var number_1 = document.getElementById("number_1");
+
+number_1.addEventListener("click", () => {
+  // calculator.number(1);
+  document.getElementById("button_1") = 1;
+})
+
+// let result = calculator.number(5).multiply().number(10).divide().number(5).applyBodmas().calculate().getResult();
+// console.log(result); // Output: -1.5
 
 
-calculator.clear();
-result = calculator.number(4).applyBodmas().calculate().getResult();
-console.log(result); // Output: 18
+// calculator.clear();
+// result = calculator.number(4).applyBodmas().calculate().getResult();
+// console.log(result); // Output: 18
 
