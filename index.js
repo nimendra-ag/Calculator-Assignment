@@ -117,8 +117,8 @@ let calculator = new Calculator();
 var number_1 = document.getElementById("number_1");
 
 number_1.addEventListener("click", () => {
-  // calculator.number(1);
-  document.getElementById("button_1") = 1;
+  calculator.number(1);
+  // document.getElementById("entry").value = 1;
 })
 
 // let result = calculator.number(5).multiply().number(10).divide().number(5).applyBodmas().calculate().getResult();
