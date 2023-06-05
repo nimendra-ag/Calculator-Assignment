@@ -11,6 +11,7 @@ class Calculator {
     }
     document.getElementById("entry").value = this.entryText;
     // console.log(this.entryText);
+    this.entryText = "";
   }
 
   number(num) {
