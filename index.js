@@ -44,20 +44,58 @@ class Calculator {
     return this;
   }
 
+  power() {
+    this.operationQueue.push("^");
+    this.updateEntry();
+    return this;
+  }
+
+  square_root(){
+    this.operationQueue.push("\u221A");
+    this.updateEntry();
+    return this;
+  }
   
 
   applyBodmas(){
     for(let i = 0; i<this.operationQueue.length; i++){
-        console.log("round", i);
-      if(this.operationQueue[i] == "*"|| this.operationQueue[i] == "/"){
-        var numberToBeReplaced = this.performOperation(this.operationQueue[i-1], this.operationQueue[i], this.operationQueue[i+1])
+      if(this.operationQueue[i] == "\u221A"){
+        var numberToBeReplaced = this.performOperation(this.operationQueue[i-1], this.operationQueue[i], this.operationQueue[i+1]);
+        this.operationQueue[i] = numberToBeReplaced;
+        this.operationQueue.splice(i+1, 1);
+      }
+    }
+
+    for(let i = 0; i<this.operationQueue.length; i++){
+      if(this.operationQueue[i] == "^"){
+        var numberToBeReplaced = this.performOperation(this.operationQueue[i-1], this.operationQueue[i], this.operationQueue[i+1]);
         console.log(this.operationQueue);
-          this.operationQueue[i] = numberToBeReplaced;
+        this.operationQueue[i] = numberToBeReplaced;
         console.log(this.operationQueue);
         this.operationQueue.splice(i+1, 1);
-          console.log(this.operationQueue);
+        console.log(this.operationQueue);
         this.operationQueue.splice(i-1, 1);
-          console.log(this.operationQueue);
+        console.log(this.operationQueue);
+      }
+    }
+
+    for(let i = 0; i<this.operationQueue.length; i++){
+      if(this.operationQueue[i] == "*"|| this.operationQueue[i] == "/"){
+        var j = i+1;
+        var number = [];
+        while(typeof this.operationQueue[j] === "number"){
+            number.push(this.operationQueue[j]);
+        }
+
+        number = number.reverse();
+        var operand_2 = 0;
+        for(let i = 0; i<this.operationQueue.length; i++){
+            operand_2 += this.operationQueue[i] * Math.power(10, i);
+        }
+        var numberToBeReplaced = this.performOperation(this.operationQueue[i-1], this.operationQueue[i], operand_2);
+        this.operationQueue[i] = numberToBeReplaced;
+        this.operationQueue.splice(i+1, 1);
+        this.operationQueue.splice(i-1, 1);
       }
     }
       // console.log(this.operationQueue);
@@ -102,6 +140,10 @@ class Calculator {
         return num1 * num2;
       case "/":
         return num1 / num2;
+      case "^":
+        return Math.pow(num1, num2);
+      case "\u221A":
+        return Math.sqrt(num2);
       default:
         return 0;
     }
@@ -133,23 +175,23 @@ var button_0 = document.getElementById("button_0");
 var button_00 = document.getElementById("button_00");
 var button_dot = document.getElementById("button_1");
 var button_plus = document.getElementById("button_+");
-var button_sqrt = document.getElementById("button_1");
+var button_sqrt = document.getElementById("button_sqrt");
 var button_equal = document.getElementById("button_=");
 var button_minus = document.getElementById("button_-");
-var button_oneover = document.getElementById("button_1");
+var button_oneover = document.getElementById("button_1/x");
 var button_multiplication = document.getElementById("button_*");
 var button_division = document.getElementById("button_/");
-var button_percentage = document.getElementById("button_1");
-var button_check = document.getElementById("button_1");
-var button_plusorminus = document.getElementById("button_1");
-var button_Mminus = document.getElementById("button_1");
-var button_Mplus = document.getElementById("button_1");
-var button_Mc = document.getElementById("button_1");
-var button_Mr= document.getElementById("button_1");
-var button_Ms = document.getElementById("button_1");
-var button_leftarrow = document.getElementById("button_1");
-var button_ce = document.getElementById("button_1");
-var button_c = document.getElementById("button_1");
+var button_percentage = document.getElementById("button_%");
+var button_power = document.getElementById("button_power");
+var button_plusorminus = document.getElementById("button_+/-");
+var button_Mminus = document.getElementById("button_m-");
+var button_Mplus = document.getElementById("button_m+");
+var button_Mc = document.getElementById("button_mc");
+var button_Mr= document.getElementById("button_mr");
+var button_Ms = document.getElementById("button_ms");
+var button_leftarrow = document.getElementById("button_leftarrow");
+var button_ce = document.getElementById("button_ce");
+var button_c = document.getElementById("button_c");
 
 
 button_1.addEventListener("click", () => {
@@ -208,8 +250,13 @@ button_equal.addEventListener("click", ()=>{
   calculator.calculate();
 })
 
+button_power.addEventListener("click", ()=>{
+  calculator.power();
+})
 
-
+button_sqrt.addEventListener("click", ()=>{
+  calculator.square_root();
+})
 
 
 // let result = calculator.number(5).multiply().number(10).divide().number(5).applyBodmas().calculate().getResult();
