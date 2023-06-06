@@ -5,6 +5,41 @@ class Calculator {
     this.entryText = "";
     this.IdArray = ["button_1", "button_2", "button_3", "button_=", "button_-"]
   }
+
+  setTheQue(){
+    for(let i = 0; i<this.operationQueue.length; i++){
+      if(typeof this.operationQueue[i] === "number" && typeof this.operationQueue[i+1] === "number"){
+        var j = i+1;
+        var numberArray = [this.operationQueue[i]];
+
+        while(typeof this.operationQueue[j] === "number"){
+          numberArray.unshift(this.operationQueue[j]);
+          j++;
+        }
+        console.log("the number array: ", numberArray);
+
+      var actualNumber = 0;
+      // var lengthOfNumber = numberArray.length; 
+      for(let k = 0; k<numberArray.length; k++){
+        actualNumber += (numberArray[k])*Math.pow(10, k);
+      }
+
+      console.log("the actual number: ",actualNumber);
+      this.operationQueue[i] = actualNumber;
+      console.log("the operation queue: ", this.operationQueue);
+
+      for(let n = j-1; n>i; n--){
+        this.operationQueue.splice(n, 1);
+      }
+
+      console.log("the operation queue: ", this.operationQueue);
+    }
+      }
+
+      
+    return this;
+  }
+
   updateEntry(){
     for(let i = 0; i<this.operationQueue.length; i++){
       this.entryText += this.operationQueue[i];
@@ -58,6 +93,7 @@ class Calculator {
   
 
   applyBodmas(){
+    this.setTheQue();
     for(let i = 0; i<this.operationQueue.length; i++){
       if(this.operationQueue[i] == "\u221A"){
         var numberToBeReplaced = this.performOperation(this.operationQueue[i-1], this.operationQueue[i], this.operationQueue[i+1]);
@@ -81,18 +117,7 @@ class Calculator {
 
     for(let i = 0; i<this.operationQueue.length; i++){
       if(this.operationQueue[i] == "*"|| this.operationQueue[i] == "/"){
-        var j = i+1;
-        var number = [];
-        while(typeof this.operationQueue[j] === "number"){
-            number.push(this.operationQueue[j]);
-        }
-
-        number = number.reverse();
-        var operand_2 = 0;
-        for(let i = 0; i<this.operationQueue.length; i++){
-            operand_2 += this.operationQueue[i] * Math.power(10, i);
-        }
-        var numberToBeReplaced = this.performOperation(this.operationQueue[i-1], this.operationQueue[i], operand_2);
+        var numberToBeReplaced = this.performOperation(this.operationQueue[i-1], this.operationQueue[i], this.operationQueue[i+1]);
         this.operationQueue[i] = numberToBeReplaced;
         this.operationQueue.splice(i+1, 1);
         this.operationQueue.splice(i-1, 1);
