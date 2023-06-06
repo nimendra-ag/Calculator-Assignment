@@ -6,42 +6,86 @@ class Calculator {
     this.IdArray = ["button_1", "button_2", "button_3", "button_=", "button_-"]
   }
 
-  setTheQue(){
-    for(let i = 0; i<this.operationQueue.length; i++){
-      if(typeof this.operationQueue[i] === "number" && typeof this.operationQueue[i+1] === "number"){
-        var j = i+1;
+  setDecimalPoints() {
+    for (let i = 0; i < this.operationQueue.length; i++) {
+      if (this.operationQueue[i] === "."){
+        var numberOfDigits = this.operationQueue[i+1].toString().length;
+        this.operationQueue[i-1] += this.operationQueue[i+1] * Math.pow(10, -numberOfDigits);  
+        this.operationQueue.splice(i+1, 1);
+      this.operationQueue.splice(i, 1);
+      }
+      
+      console.log("the operation queue: ", this.operationQueue);
+
+    }
+
+    // for (let i = 0; i < this.operationQueue.length; i++) {
+    //   if (this.operationQueue[i] === ".") {
+    //     var j = i + 1;
+    //     var numberArray = [this.operationQueue[j]];
+    //     j++;
+    //     while (typeof this.operationQueue[j] === "number") {
+    //       numberArray.push(this.operationQueue[j]);
+    //       j++;
+    //     }
+    //     console.log("the number array: ", numberArray);
+
+    //     var actualNumber = 0;
+    //     // var lengthOfNumber = numberArray.length; 
+    //     for (let k = 1; k <= numberArray.length; k++) {
+    //       actualNumber += (numberArray[k]) * Math.pow(10, -k);
+    //     }
+
+    //     console.log("the actual number: ", actualNumber);
+    //     this.operationQueue[i-1] = actualNumber;
+    //     console.log("the operation queue: ", this.operationQueue);
+
+    //     for (let n = j ; n > i; n--) {
+    //       this.operationQueue.splice(n, 1);
+    //     }
+    //     console.log("the operation queue: ", this.operationQueue);
+
+    //   }
+    // }
+    return this;
+  }
+
+  setTheQue() {
+    for (let i = 0; i < this.operationQueue.length; i++) {
+      if (typeof this.operationQueue[i] === "number" && typeof this.operationQueue[i + 1] === "number") {
+        var j = i + 1;
         var numberArray = [this.operationQueue[i]];
 
-        while(typeof this.operationQueue[j] === "number"){
+        while (typeof this.operationQueue[j] === "number") {
           numberArray.unshift(this.operationQueue[j]);
           j++;
         }
         console.log("the number array: ", numberArray);
 
-      var actualNumber = 0;
-      // var lengthOfNumber = numberArray.length; 
-      for(let k = 0; k<numberArray.length; k++){
-        actualNumber += (numberArray[k])*Math.pow(10, k);
+        var actualNumber = 0;
+        // var lengthOfNumber = numberArray.length; 
+        for (let k = 0; k < numberArray.length; k++) {
+          actualNumber += (numberArray[k]) * Math.pow(10, k);
+        }
+
+        console.log("the actual number: ", actualNumber);
+        this.operationQueue[i] = actualNumber;
+        console.log("the operation queue: ", this.operationQueue);
+
+        for (let n = j - 1; n > i; n--) {
+          this.operationQueue.splice(n, 1);
+        }
+
+        console.log("the operation queue: ", this.operationQueue);
       }
-
-      console.log("the actual number: ",actualNumber);
-      this.operationQueue[i] = actualNumber;
-      console.log("the operation queue: ", this.operationQueue);
-
-      for(let n = j-1; n>i; n--){
-        this.operationQueue.splice(n, 1);
-      }
-
-      console.log("the operation queue: ", this.operationQueue);
     }
-      }
 
-      
+
     return this;
   }
 
-  updateEntry(){
-    for(let i = 0; i<this.operationQueue.length; i++){
+  updateEntry() {
+    for (let i = 0; i < this.operationQueue.length; i++) {
       this.entryText += this.operationQueue[i];
     }
     document.getElementById("entry").value = this.entryText;
@@ -85,21 +129,21 @@ class Calculator {
     return this;
   }
 
-  square_root(){
+  square_root() {
     this.operationQueue.push("\u221A");
     this.updateEntry();
     return this;
   }
-  
-  addZero(){
-    if(this.operationQueue.length == 0){
+
+  addZero() {
+    if (this.operationQueue.length == 0) {
       this.operationQueue.push(0);
     }
 
-    else{
-      if(typeof this.operationQueue[this.operationQueue.length - 1] === "number"){
+    else {
+      if (typeof this.operationQueue[this.operationQueue.length - 1] === "number") {
         console.log("entered the function");
-        this.operationQueue[this.operationQueue.length - 1] = (this.operationQueue[this.operationQueue.length - 1])*10;
+        this.operationQueue[this.operationQueue.length - 1] = (this.operationQueue[this.operationQueue.length - 1]) * 10;
       }
       console.log("the operation queue", this.operationQueue);
     }
@@ -107,11 +151,11 @@ class Calculator {
     return this;
   }
 
-  addDoubleZeros(){
-    if(this.operationQueue.length != 0){
-      if(typeof this.operationQueue[this.operationQueue.length - 1] === "number"){
+  addDoubleZeros() {
+    if (this.operationQueue.length != 0) {
+      if (typeof this.operationQueue[this.operationQueue.length - 1] === "number") {
         console.log("entered the function");
-        this.operationQueue[this.operationQueue.length - 1] = (this.operationQueue[this.operationQueue.length - 1])*100;
+        this.operationQueue[this.operationQueue.length - 1] = (this.operationQueue[this.operationQueue.length - 1]) * 100;
       }
       console.log("the operation queue", this.operationQueue);
     }
@@ -119,45 +163,51 @@ class Calculator {
     return this;
   }
 
+  decimalPoint(){
+    this.operationQueue.push(".");
+    console.log(this.operationQueue);
+    this.updateEntry();
+    return this;
+  }
 
 
-
-  applyBodmas(){
+  applyBodmas() {
     this.setTheQue();
-    for(let i = 0; i<this.operationQueue.length; i++){
-      if(this.operationQueue[i] == "\u221A"){
-        var numberToBeReplaced = this.performOperation(this.operationQueue[i-1], this.operationQueue[i], this.operationQueue[i+1]);
+    this.setDecimalPoints();
+    for (let i = 0; i < this.operationQueue.length; i++) {
+      if (this.operationQueue[i] == "\u221A") {
+        var numberToBeReplaced = this.performOperation(this.operationQueue[i - 1], this.operationQueue[i], this.operationQueue[i + 1]);
         this.operationQueue[i] = numberToBeReplaced;
-        this.operationQueue.splice(i+1, 1);
+        this.operationQueue.splice(i + 1, 1);
       }
     }
 
-    for(let i = 0; i<this.operationQueue.length; i++){
-      if(this.operationQueue[i] == "^"){
-        var numberToBeReplaced = this.performOperation(this.operationQueue[i-1], this.operationQueue[i], this.operationQueue[i+1]);
+    for (let i = 0; i < this.operationQueue.length; i++) {
+      if (this.operationQueue[i] == "^") {
+        var numberToBeReplaced = this.performOperation(this.operationQueue[i - 1], this.operationQueue[i], this.operationQueue[i + 1]);
         console.log(this.operationQueue);
         this.operationQueue[i] = numberToBeReplaced;
         console.log(this.operationQueue);
-        this.operationQueue.splice(i+1, 1);
+        this.operationQueue.splice(i + 1, 1);
         console.log(this.operationQueue);
-        this.operationQueue.splice(i-1, 1);
+        this.operationQueue.splice(i - 1, 1);
         console.log(this.operationQueue);
       }
     }
 
-    for(let i = 0; i<this.operationQueue.length; i++){
-      if(this.operationQueue[i] == "*"|| this.operationQueue[i] == "/"){
-        var numberToBeReplaced = this.performOperation(this.operationQueue[i-1], this.operationQueue[i], this.operationQueue[i+1]);
+    for (let i = 0; i < this.operationQueue.length; i++) {
+      if (this.operationQueue[i] == "*" || this.operationQueue[i] == "/") {
+        var numberToBeReplaced = this.performOperation(this.operationQueue[i - 1], this.operationQueue[i], this.operationQueue[i + 1]);
         this.operationQueue[i] = numberToBeReplaced;
-        this.operationQueue.splice(i+1, 1);
-        this.operationQueue.splice(i-1, 1);
+        this.operationQueue.splice(i + 1, 1);
+        this.operationQueue.splice(i - 1, 1);
       }
     }
-      // console.log(this.operationQueue);
-      return this;
+    // console.log(this.operationQueue);
+    return this;
   }
   calculate() {
-    
+
     this.applyBodmas();
     let currentResult = 0;
     let currentOperator = null;
@@ -228,7 +278,7 @@ var button_8 = document.getElementById("button_8");
 var button_9 = document.getElementById("button_9");
 var button_0 = document.getElementById("button_0");
 var button_00 = document.getElementById("button_00");
-var button_dot = document.getElementById("button_1");
+var button_dot = document.getElementById("button_dot");
 var button_plus = document.getElementById("button_+");
 var button_sqrt = document.getElementById("button_sqrt");
 var button_equal = document.getElementById("button_=");
@@ -242,7 +292,7 @@ var button_plusorminus = document.getElementById("button_+/-");
 var button_Mminus = document.getElementById("button_m-");
 var button_Mplus = document.getElementById("button_m+");
 var button_Mc = document.getElementById("button_mc");
-var button_Mr= document.getElementById("button_mr");
+var button_Mr = document.getElementById("button_mr");
 var button_Ms = document.getElementById("button_ms");
 var button_leftarrow = document.getElementById("button_leftarrow");
 var button_ce = document.getElementById("button_ce");
@@ -253,73 +303,78 @@ button_1.addEventListener("click", () => {
   calculator.number(1);
 })
 
-button_2.addEventListener("click", ()=> {
+button_2.addEventListener("click", () => {
   calculator.number(2);
 })
 
-button_3.addEventListener("click", ()=> {
+button_3.addEventListener("click", () => {
   calculator.number(3);
 })
 
-button_4.addEventListener("click", ()=> {
+button_4.addEventListener("click", () => {
   calculator.number(4);
 })
 
-button_5.addEventListener("click", ()=> {
+button_5.addEventListener("click", () => {
   calculator.number(5);
 })
 
-button_6.addEventListener("click", ()=> {
+button_6.addEventListener("click", () => {
   calculator.number(6);
 })
 
-button_7.addEventListener("click", ()=> {
+button_7.addEventListener("click", () => {
   calculator.number(7);
 })
 
-button_8.addEventListener("click", ()=> {
+button_8.addEventListener("click", () => {
   calculator.number(8);
 })
 
-button_9.addEventListener("click", ()=>{
+button_9.addEventListener("click", () => {
   calculator.number(9)
 })
 
-button_plus.addEventListener("click", ()=>{
+button_plus.addEventListener("click", () => {
   calculator.add()
 })
 
-button_minus.addEventListener("click", ()=>{
+button_minus.addEventListener("click", () => {
   calculator.subtract()
 })
 
-button_division.addEventListener("click", ()=>{
+button_division.addEventListener("click", () => {
   calculator.divide()
 })
 
-button_multiplication.addEventListener("click", ()=>{
+button_multiplication.addEventListener("click", () => {
   calculator.multiply()
 })
 
-button_equal.addEventListener("click", ()=>{
+button_equal.addEventListener("click", () => {
   calculator.calculate();
 })
 
-button_power.addEventListener("click", ()=>{
+button_power.addEventListener("click", () => {
   calculator.power();
 })
 
-button_sqrt.addEventListener("click", ()=>{
+button_sqrt.addEventListener("click", () => {
   calculator.square_root();
 })
 
-button_0.addEventListener("click", ()=>{
+button_0.addEventListener("click", () => {
   calculator.addZero();
 })
 
-button_00.addEventListener("click", ()=>{
+button_00.addEventListener("click", () => {
   calculator.addDoubleZeros();
 })
+
+button_dot.addEventListener("click", () => {
+  calculator.decimalPoint();
+})
+
 
 // let result = calculator.number(5).multiply().number(10).divide().number(5).applyBodmas().calculate().getResult();
 // console.log(result); // Output: -1.5
