@@ -91,6 +91,36 @@ class Calculator {
     return this;
   }
   
+  addZero(){
+    if(this.operationQueue.length == 0){
+      this.operationQueue.push(0);
+    }
+
+    else{
+      if(typeof this.operationQueue[this.operationQueue.length - 1] === "number"){
+        console.log("entered the function");
+        this.operationQueue[this.operationQueue.length - 1] = (this.operationQueue[this.operationQueue.length - 1])*10;
+      }
+      console.log("the operation queue", this.operationQueue);
+    }
+    this.updateEntry();
+    return this;
+  }
+
+  addDoubleZeros(){
+    if(this.operationQueue.length != 0){
+      if(typeof this.operationQueue[this.operationQueue.length - 1] === "number"){
+        console.log("entered the function");
+        this.operationQueue[this.operationQueue.length - 1] = (this.operationQueue[this.operationQueue.length - 1])*100;
+      }
+      console.log("the operation queue", this.operationQueue);
+    }
+    this.updateEntry();
+    return this;
+  }
+
+
+
 
   applyBodmas(){
     this.setTheQue();
@@ -283,6 +313,13 @@ button_sqrt.addEventListener("click", ()=>{
   calculator.square_root();
 })
 
+button_0.addEventListener("click", ()=>{
+  calculator.addZero();
+})
+
+button_00.addEventListener("click", ()=>{
+  calculator.addDoubleZeros();
+})
 
 // let result = calculator.number(5).multiply().number(10).divide().number(5).applyBodmas().calculate().getResult();
 // console.log(result); // Output: -1.5
