@@ -6,6 +6,14 @@ class Calculator {
     this.IdArray = ["button_1", "button_2", "button_3", "button_=", "button_-"]
   }
 
+  reciprocal(){
+    this.setTheQue();
+    this.setDecimalPoints();
+    this.operationQueue[0] = 1/this.operationQueue[0];
+    this.updateEntry();
+    return this;
+  }
+
   setDecimalPoints() {
     for (let i = 0; i < this.operationQueue.length; i++) {
       if (this.operationQueue[i] === "."){
@@ -283,7 +291,7 @@ var button_plus = document.getElementById("button_+");
 var button_sqrt = document.getElementById("button_sqrt");
 var button_equal = document.getElementById("button_=");
 var button_minus = document.getElementById("button_-");
-var button_oneover = document.getElementById("button_1/x");
+var button_reciprocal = document.getElementById("button_1/x");
 var button_multiplication = document.getElementById("button_*");
 var button_division = document.getElementById("button_/");
 var button_percentage = document.getElementById("button_%");
@@ -373,6 +381,10 @@ button_00.addEventListener("click", () => {
 
 button_dot.addEventListener("click", () => {
   calculator.decimalPoint();
+})
+
+button_reciprocal.addEventListener("click", () => {
+  calculator.reciprocal();
 })
 
 
