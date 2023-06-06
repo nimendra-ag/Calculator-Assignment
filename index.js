@@ -6,6 +6,18 @@ class Calculator {
     this.IdArray = ["button_1", "button_2", "button_3", "button_=", "button_-"]
   }
 
+  setNegativeValue(){
+    for (let i = 0; i < this.operationQueue.length; i++){
+      if (this.operationQueue[i] === "-"){
+        if(i == 0 || typeof this.operationQueue[i-1] != "number"){
+          this.operationQueue[i] = -(this.operationQueue[i+1]);
+          this.operationQueue.splice(i+1, 1);
+          console.log(this.operationQueue);
+        }
+      }
+    }
+    
+  }
   reciprocal(){
     this.setTheQue();
     this.setDecimalPoints();
@@ -182,6 +194,7 @@ class Calculator {
   applyBodmas() {
     this.setTheQue();
     this.setDecimalPoints();
+    this.setNegativeValue();
     for (let i = 0; i < this.operationQueue.length; i++) {
       if (this.operationQueue[i] == "\u221A") {
         var numberToBeReplaced = this.performOperation(this.operationQueue[i - 1], this.operationQueue[i], this.operationQueue[i + 1]);
