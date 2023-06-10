@@ -4,6 +4,47 @@ class Calculator {
     this.operationQueue = [];
     this.entryText = "";
     this.IdArray = ["button_1", "button_2", "button_3", "button_=", "button_-"]
+    this.memory = null;
+  }
+
+  memorySave(){
+    this.memory = this.operationQueue[0];
+    console.log(this.operationQueue[0])
+    this.entryClear();
+    console.log(this.operationQueue);
+
+    // return this;
+  }
+
+  memoryClear(){
+    this.memory = null;
+  }
+
+  memoryAddition(){
+    if(this.memory != null){
+      this.memory += this.operationQueue[0];
+      this.entryClear();
+      console.log(this.operationQueue);
+      console.log(this.memory);
+    }
+  }
+
+  memorySubtraction(){
+    if(this.memory != null){
+      this.memory -= this.operationQueue[0];
+      this.entryClear();
+      console.log(this.operationQueue);
+      console.log(this.memory);
+    }
+  }
+
+  memoryRecall(){
+    if(this.memory != null){
+      console.log(typeof(this.memory));
+      console.log(this.memory);
+      var tempNum = this.memory;
+      this.number(tempNum);
+    }
   }
 
   setNegativeValue(){
@@ -16,8 +57,8 @@ class Calculator {
         }
       }
     }
-    
   }
+
   reciprocal(){
     this.setTheQue();
     this.setDecimalPoints();
@@ -190,6 +231,22 @@ class Calculator {
     return this;
   }
 
+  entryClear(){
+    this.result = 0;
+    this.operationQueue = [];
+    this.updateEntry();
+    return this;
+  }
+
+  resetCalculator(){
+    this.entryClear();
+    this.memory = null;
+  }
+
+  backspace(){
+    this.operationQueue.pop();
+    this.updateEntry();
+  }
 
   applyBodmas() {
     this.setTheQue();
@@ -286,6 +343,8 @@ class Calculator {
   }
 }
 
+
+
 let calculator = new Calculator();
 
 var button_1 = document.getElementById("button_1");
@@ -310,12 +369,14 @@ var button_division = document.getElementById("button_/");
 var button_percentage = document.getElementById("button_%");
 var button_power = document.getElementById("button_power");
 var button_plusorminus = document.getElementById("button_+/-");
+
 var button_Mminus = document.getElementById("button_m-");
 var button_Mplus = document.getElementById("button_m+");
 var button_Mc = document.getElementById("button_mc");
 var button_Mr = document.getElementById("button_mr");
 var button_Ms = document.getElementById("button_ms");
-var button_leftarrow = document.getElementById("button_leftarrow");
+
+var button_backspace = document.getElementById("button_backspace");
 var button_ce = document.getElementById("button_ce");
 var button_c = document.getElementById("button_c");
 
@@ -400,7 +461,37 @@ button_reciprocal.addEventListener("click", () => {
   calculator.reciprocal();
 })
 
+button_Ms.addEventListener("click", ()=>{
+  calculator.memorySave();
+})
 
+button_Mc.addEventListener("click", ()=>{
+  calculator.memoryClear();
+})
+
+button_Mminus.addEventListener("click", ()=>{
+  calculator.memorySubtraction();
+})
+
+button_Mplus.addEventListener("click", ()=>{
+  calculator.memoryAddition();
+})
+
+button_Mr.addEventListener("click", ()=>{
+  calculator.memoryRecall();
+})
+
+button_c.addEventListener("click", ()=>{
+  calculator.entryClear();
+})
+
+button_ce.addEventListener("click", ()=>{
+  calculator.resetCalculator()
+})
+
+button_backspace.addEventListener("click", ()=>{
+  calculator.backspace();
+})
 // let result = calculator.number(5).multiply().number(10).divide().number(5).applyBodmas().calculate().getResult();
 // console.log(result); // Output: -1.5
 
