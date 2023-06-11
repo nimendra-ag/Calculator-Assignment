@@ -79,7 +79,14 @@ class Calculator {
       console.log("the operation queue: ", this.operationQueue);
 
     }
-
+    return this;
+  }
+  signChange(){
+    if(this.operationQueue.length == 1 && typeof this.operationQueue[0] === "number"){
+      this.operationQueue[0] *= -1;
+      this.updateEntry();
+    }
+  }
     // for (let i = 0; i < this.operationQueue.length; i++) {
     //   if (this.operationQueue[i] === ".") {
     //     var j = i + 1;
@@ -108,8 +115,7 @@ class Calculator {
 
     //   }
     // }
-    return this;
-  }
+   
 
   setTheQue() {
     for (let i = 0; i < this.operationQueue.length; i++) {
@@ -197,7 +203,7 @@ class Calculator {
   }
 
   addZero() {
-    if (this.operationQueue.length == 0) {
+    if (this.operationQueue.length == 0 || this.operationQueue[this.operationQueue.length-1]===".") {
       this.operationQueue.push(0);
     }
 
@@ -306,10 +312,11 @@ class Calculator {
     }
 
     this.result = currentResult;
-    this.operationQueue = [];
-    this.entryText = this.result;
-    console.log(this.result);
-    document.getElementById("entry").value = this.entryText;
+    this.operationQueue = [this.result];
+    this.updateEntry();
+    // this.entryText = this.result;
+    // console.log(this.result);
+    // document.getElementById("entry").value = this.entryText;
     // return this;
   }
 
@@ -368,7 +375,7 @@ var button_multiplication = document.getElementById("button_*");
 var button_division = document.getElementById("button_/");
 var button_percentage = document.getElementById("button_%");
 var button_power = document.getElementById("button_power");
-var button_plusorminus = document.getElementById("button_+/-");
+var button_plusMinus = document.getElementById("button_+/-");
 
 var button_Mminus = document.getElementById("button_m-");
 var button_Mplus = document.getElementById("button_m+");
@@ -491,6 +498,10 @@ button_ce.addEventListener("click", ()=>{
 
 button_backspace.addEventListener("click", ()=>{
   calculator.backspace();
+})
+
+button_plusMinus.addEventListener("click", ()=>{
+  calculator.signChange();
 })
 // let result = calculator.number(5).multiply().number(10).divide().number(5).applyBodmas().calculate().getResult();
 // console.log(result); // Output: -1.5
