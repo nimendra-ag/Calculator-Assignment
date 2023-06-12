@@ -1,0 +1,35 @@
+*Note that the key board is disabled for the input area.
+//Buttons
+
+Color - Secondary
+
+MS -> Save the number in the entry to the memory.
+MR -> Input the number in the memory to the entry.
+MC -> Clear the memory.
+M+ -> Add the number in the entry to the memory and saves
+      it to the memory.
+M- -> Sumbtract the number in the input from the memroy and
+      saves it to the memory.
+<- -> Backspace
+CE -> Reset the calculoator. Clears the entry & memory. 
+C  -> Clear the entry. Doesn't clear the memory.
+
+Color - Success
+
++/- -> Changer the sign of the number.
+^   -> Power.
+/   -> Division.
+%   -> Percentage.
+*   -> Multiplication.
+1/x -> Reciprocal of the number.
+-   -> Subtraction.
+=   -> Start the calculation.
+.   -> Decimal point
++   -> Addition
+√   -> Square root.
+
+Color - Primary
+
+Each button represents the number on it.
+
+ 

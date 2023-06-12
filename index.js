@@ -3,7 +3,6 @@ class Calculator {
     this.result = 0;
     this.operationQueue = [];
     this.entryText = "";
-    this.IdArray = ["button_1", "button_2", "button_3", "button_=", "button_-"]
     this.memory = null;
   }
 
@@ -12,8 +11,6 @@ class Calculator {
     console.log(this.operationQueue[0])
     this.entryClear();
     console.log(this.operationQueue);
-
-    // return this;
   }
 
   memoryClear(){
@@ -75,48 +72,18 @@ class Calculator {
         this.operationQueue.splice(i+1, 1);
       this.operationQueue.splice(i, 1);
       }
-      
       console.log("the operation queue: ", this.operationQueue);
-
     }
     return this;
   }
+
   signChange(){
     if(this.operationQueue.length == 1 && typeof this.operationQueue[0] === "number"){
       this.operationQueue[0] *= -1;
       this.updateEntry();
     }
   }
-    // for (let i = 0; i < this.operationQueue.length; i++) {
-    //   if (this.operationQueue[i] === ".") {
-    //     var j = i + 1;
-    //     var numberArray = [this.operationQueue[j]];
-    //     j++;
-    //     while (typeof this.operationQueue[j] === "number") {
-    //       numberArray.push(this.operationQueue[j]);
-    //       j++;
-    //     }
-    //     console.log("the number array: ", numberArray);
-
-    //     var actualNumber = 0;
-    //     // var lengthOfNumber = numberArray.length; 
-    //     for (let k = 1; k <= numberArray.length; k++) {
-    //       actualNumber += (numberArray[k]) * Math.pow(10, -k);
-    //     }
-
-    //     console.log("the actual number: ", actualNumber);
-    //     this.operationQueue[i-1] = actualNumber;
-    //     console.log("the operation queue: ", this.operationQueue);
-
-    //     for (let n = j ; n > i; n--) {
-    //       this.operationQueue.splice(n, 1);
-    //     }
-    //     console.log("the operation queue: ", this.operationQueue);
-
-    //   }
-    // }
    
-
   setTheQue() {
     for (let i = 0; i < this.operationQueue.length; i++) {
       if (typeof this.operationQueue[i] === "number" && typeof this.operationQueue[i + 1] === "number") {
@@ -146,8 +113,6 @@ class Calculator {
         console.log("the operation queue: ", this.operationQueue);
       }
     }
-
-
     return this;
   }
 
@@ -156,7 +121,6 @@ class Calculator {
       this.entryText += this.operationQueue[i];
     }
     document.getElementById("entry").value = this.entryText;
-    // console.log(this.entryText);
     this.entryText = "";
   }
 
@@ -299,7 +263,6 @@ class Calculator {
         this.operationQueue.splice(i - 1, 1);
       }
     }
-    // console.log(this.operationQueue);
     return this;
   }
   calculate() {
@@ -327,10 +290,6 @@ class Calculator {
     this.result = currentResult;
     this.operationQueue = [this.result];
     this.updateEntry();
-    // this.entryText = this.result;
-    // console.log(this.result);
-    // document.getElementById("entry").value = this.entryText;
-    // return this;
   }
 
   performOperation(num1, operator, num2) {
@@ -352,15 +311,6 @@ class Calculator {
     }
   }
 
-  clear() {
-    this.result = 0;
-    this.operationQueue = [];
-    return this;
-  }
-
-  getResult() {
-    return this.result;
-  }
 }
 
 
@@ -526,11 +476,3 @@ button_plusMinus.addEventListener("click", ()=>{
 button_percentage.addEventListener("click", ()=>{
   calculator.percentage();
 })
-// let result = calculator.number(5).multiply().number(10).divide().number(5).applyBodmas().calculate().getResult();
-// console.log(result); // Output: -1.5
-
-
-// calculator.clear();
-// result = calculator.number(4).applyBodmas().calculate().getResult();
-// console.log(result); // Output: 18
-
