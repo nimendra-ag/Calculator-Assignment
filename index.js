@@ -254,6 +254,18 @@ class Calculator {
     this.updateEntry();
   }
 
+  percentage(){
+    this.setTheQue();
+    this.setDecimalPoints();
+    this.setNegativeValue();
+    if(this.operationQueue.length === 3){
+      if(typeof this.operationQueue[0] === "number" && this.operationQueue[1] == "/" && typeof this.operationQueue[2] === "number"){
+        this.result = (this.operationQueue[0]/ this.operationQueue[2])*100;
+        this.operationQueue = [this.result];
+        this.updateEntry();
+      }
+    }
+  }
   applyBodmas() {
     this.setTheQue();
     this.setDecimalPoints();
@@ -310,6 +322,7 @@ class Calculator {
         currentOperator = item;
       }
     }
+
 
     this.result = currentResult;
     this.operationQueue = [this.result];
@@ -508,6 +521,10 @@ button_backspace.addEventListener("click", ()=>{
 
 button_plusMinus.addEventListener("click", ()=>{
   calculator.signChange();
+})
+
+button_percentage.addEventListener("click", ()=>{
+  calculator.percentage();
 })
 // let result = calculator.number(5).multiply().number(10).divide().number(5).applyBodmas().calculate().getResult();
 // console.log(result); // Output: -1.5
