@@ -387,6 +387,12 @@ var button_backspace = document.getElementById("button_backspace");
 var button_ce = document.getElementById("button_ce");
 var button_c = document.getElementById("button_c");
 
+var text_entry = document.getElementById("entry");
+
+text_entry.addEventListener("keydown", (event)=>{
+  event.preventDefault();
+})
+
 
 button_1.addEventListener("click", () => {
   calculator.number(1);
